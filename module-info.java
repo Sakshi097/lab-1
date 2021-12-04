@@ -1,38 +1,81 @@
-module greatlearning {package com.greatlearning.Service;
+module code {package com.greatlearning.Service;
 
 import com.greatlearning.model.Employee;
+import java.util.Scanner;
 
-import java.util.Random;
+public class DriverClass {
+    public static void main(String[] args) {
+        Employee employee = new Employee("Vuram","Vincent");
 
-public class CredentialService  {
+        String generatedEmail ;
 
-    public char[] generatePassword(){
-        String capitalLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        String smallLetters = "abcdefghijklmnopqrstuvwxyz";
-        String numbers = "123456789";
-        String specialCharacters = "!@#$%^&*_=+-?/.<>)";
-        String values = capitalLetters + smallLetters + numbers + specialCharacters;
-        Random random = new Random();
-        char[] password = new char[8];
-        for (int i = 0; i < 8; i++) {
-            password[i] = values.charAt(random.nextInt(values.length()));
+        char[] generatedPassword ;
+        CredentialService cService = new CredentialService();
+
+        System.out.println("Please enter the department from the following"  );
+        System.out.println("1.Technical Department");
+        System.out.println("2.Admin Department");
+        System.out.println("3.Human Resource Department");
+        System.out.println("4.Legal Department");
+
+
+        Scanner in = new Scanner(System.in);
+        int choice = in.nextInt();
+
+        switch (choice){
+            case 1:
+                generatedEmail = cService.generateEmailAddress(employee.getFirstName(),employee.getLastName(),"Tech");
+                generatedPassword = cService.generatePassword();
+                cService.showCredential(employee, generatedEmail,generatedPassword);
+                break;
+
+            case 2:
+                generatedEmail = cService.generateEmailAddress(employee.getFirstName(),employee.getLastName(),"Admin");
+                generatedPassword = cService.generatePassword();
+                cService.showCredential(employee, generatedEmail,generatedPassword);
+                break;
+            case 3:
+                generatedEmail = cService.generateEmailAddress(employee.getFirstName(),employee.getLastName(),"HR");
+                generatedPassword = cService.generatePassword();
+                cService.showCredential(employee, generatedEmail,generatedPassword);
+                break;
+            case 4:
+                generatedEmail = cService.generateEmailAddress(employee.getFirstName(),employee.getLastName(),"Legal");
+                generatedPassword = cService.generatePassword();
+                cService.showCredential(employee, generatedEmail,generatedPassword);
+                break;
+            default:  System.out.println("enter the valid choice");
+            break;
 
         }
-        return password;
+
+
+
+//        if (choice == 1){
+//            generatedEmail = cService.generateEmailAddress(employee.getFirstName(),employee.getLastName(),"Tech");
+//            generatedPassword = cService.generatePassword();
+//            cService.showCredential(employee, generatedEmail,generatedPassword);
+//        } else if (choice == 2){
+//            generatedEmail = cService.generateEmailAddress(employee.getFirstName(),employee.getLastName(),"Admin");
+//            generatedPassword = cService.generatePassword();
+//            cService.showCredential(employee, generatedEmail,generatedPassword);
+//        }
+//        else if (choice == 3){
+//            generatedEmail = cService.generateEmailAddress(employee.getFirstName(),employee.getLastName(),"HR");
+//            generatedPassword = cService.generatePassword();
+//            cService.showCredential(employee, generatedEmail,generatedPassword);
+//        }
+//        else if (choice == 4){
+//            generatedEmail = cService.generateEmailAddress(employee.getFirstName(),employee.getLastName(),"Legal");
+//            generatedPassword = cService.generatePassword();
+//            cService.showCredential(employee, generatedEmail,generatedPassword);
+//        }
+//        else{
+//            System.out.println("enter the valid choice");
+//        }
+
+
+
     }
-
-    public String generateEmailAddress(String firstName, String lastName, String department){
-
-        return firstName + lastName + "@" + department + ".abc.com";
-
-
-    }
-
-    void showCredential ( Employee employee,String email, char [] generatedPassword) {
-        System.out.println("Dear " + employee.getLastName() + " your generated credentials are as follows" );
-        System.out.println( "Email--> " + email);
-        System.out.println("password is " + generatedPassword);
-
-
-    }
+}
 }
